@@ -3,8 +3,8 @@ class ErrorValidacion(Exception):
     """Error generado cuando un dato no cumple con las condiciones requeridas"""
     pass
 # Aporte de Jully: excepciones adicionales para validar datos y reservas
-
-class DatoInvalido(Exception):
+# Aporte de Nicole:correción de validacion de errores
+class DatoInvalido(ErrorValidacion):
     """Error cuando el usuario ingresa un dato vacío o incorrecto."""
     pass
 
