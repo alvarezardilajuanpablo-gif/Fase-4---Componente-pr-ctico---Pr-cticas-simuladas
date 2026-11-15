@@ -1,5 +1,5 @@
 from entidad import Entidad
-from excepciones import ErrorValidacion
+from excepciones import ErrorValidacion, ClienteDuplicado, ClienteNoEncontrado
 
 # Aporte de Jully: importa la validación general de texto.
 from excepciones import validar_campo
@@ -7,6 +7,10 @@ from excepciones import validar_campo
 
 #Creamos la clase Cliente con sus atributos y metodos como una clase hija de la clase Entidad, la cual se encargara de hacer validaciones robustas y encapsulación de datos personales
 class Cliente (Entidad):
+
+    #Aporte de Juan: se implementa una lista compartida para almacenar a los clientes
+    _clientes = []
+
     def __init__(self, identificador, nombre, correo, telefono):
         super().__init__(identificador)
 
@@ -15,6 +19,37 @@ class Cliente (Entidad):
         self.__correo = self.validar_correo(correo)
         self.__telefono = self.validar_telefono(telefono)
 
+    #Aporte de Juan: Agregamos el metodo registrar_cliente () para registrar clientes y evitar documentos duplicados    
+    def registrar_cliente(self):
+
+        #Comprueba si el documento ya esta registrado
+        for cliente in Cliente._clientes:
+            if cliente.identificador == self.identificador:
+                raise ClienteDuplicado(
+                    "Ya existe un cliente con ese documento"
+                )
+            
+        #Agrega el cliente a la lista compartida    
+        Cliente._clientes.append(self)
+
+    #Aporte de Juan: Agregamos el metodo buscar_cliente para buscar clientes mediante su documento
+    @classmethod
+    def buscar_cliente(cls, identificador):
+
+        #Recorre la lista de clientes registrados
+        for cliente in cls._clientes:
+
+            #Comprueba si el documento coincide
+            if cliente.identificador == identificador:
+                return cliente
+
+        #Si no encuentra el cliente genera un error
+        raise ClienteNoEncontrado(
+            "No existe un cliente con este documento"
+        )    
+
+
+            
     @staticmethod
     def validar_nombre(nombre):
         """Comprueba que el nombre sea un texto no vacío."""
