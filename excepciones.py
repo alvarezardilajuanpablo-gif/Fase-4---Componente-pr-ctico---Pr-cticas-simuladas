@@ -4,12 +4,18 @@ class ErrorValidacion(Exception):
     pass
 # Aporte de Jully: excepciones adicionales para validar datos y reservas
 # Aporte de Laura:correción de validacion de errores
+
 class DatoInvalido(ErrorValidacion):
     """Error cuando el usuario ingresa un dato vacío o incorrecto."""
     pass
 
 class ClienteNoEncontrado(ErrorValidacion):
     """Error cuando el cliente buscado no existe en el sistema."""
+    pass
+
+# Aporte de Juan: Excepcion para controlar clientes duplicados
+class ClienteDuplicado(ErrorValidacion):
+    """Error cuando se intenta registrar un cliente que ya existe"""
     pass
 
 class ReservaInvalida(ErrorValidacion):

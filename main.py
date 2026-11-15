@@ -15,7 +15,7 @@ def iniciar_menu():
         # Presenta las opciones disponibles.
         print("\nMenú de opciones:")
         print("1. Registrar cliente")
-        print("2. Consultar cliente — pendiente")
+        print("2. Consultar cliente")
         print("3. Realizar reserva — pendiente")
         print("4. Salir")
 
@@ -44,20 +44,36 @@ def iniciar_menu():
                     identificador, nombre, correo, telefono
                 )
 
+                #Aporte de Juan: Registra el cliente en la lista compartida
+                cliente.registrar_cliente()
+
                 # Muestra el resultado del registro de prueba.
                 print("\nCliente creado correctamente:")
                 print(cliente.mostrar_informacion())
 
-                # Aclara el alcance de esta primera versión.
-                print("Nota: todavía no se guarda en un listado o archivo.")
+                #Aporte de Juan: se elimina el mensaje anterior por que ahora los clientes si se almacenan en la lista compartida
 
             except ErrorValidacion as error:
                 # Muestra el error sin finalizar el programa.
                 print(f"Error de validación: {error}")
 
-        # Deja indicada la función que continuará el equipo.
+        # Aporte de Juan: Implementamos la consulta de clientes por documento 
         elif opcion == 2:
-            print("La consulta de clientes está pendiente de implementación.")
+            try:
+                #Solicita el documento del cliente que se desea buscar
+                identificador = input("Ingrese el documento del cliente: ")
+
+                #Busca el cliente utilizando su identificador
+                cliente = Cliente.buscar_cliente(identificador) 
+
+                #Muestra la informacion del cliente encontrado
+                print("\nCliente encontrado:")
+                print(cliente.mostrar_informacion())
+
+            except ErrorValidacion as error:
+                #Muestra el error si el cliente no existe o hay datos invalidos
+                print(f"Error de consulta: {error}")                                 
+                                                                           
 
         # Deja indicada la función que continuará el equipo.
         elif opcion == 3:
