@@ -4,20 +4,45 @@ from excepciones import ReservaInvalida, validar_campo
 
 # Aporte de Jhon: clase Reserva
 class Reserva(Entidad):
+
+    # Aporte de Jully: corrección para evitar identificadores de reserva duplicados.
+    _reservas = []
+
     def __init__(self, identificador, cliente, servicio, fecha, hora):
         super().__init__(identificador)
+
+        # Aporte de Jully: corrección para comprobar que el ID de la reserva no exista.
+        for reserva in Reserva._reservas:
+            if reserva.identificador == identificador:
+                raise ReservaInvalida(
+                    "Ya existe una reserva con ese identificador."
+                )
+
         self.__cliente = cliente
         self.__servicio = servicio
         self.__fecha = self.validar_fecha(fecha)
         self.__hora = self.validar_hora(hora)
 
-    @staticmethod
+        # Aporte de Jully: corrección para guardar la reserva en la lista compartida.
+        Reserva._reservas.append(self)
+   @staticmethod
     def validar_fecha(fecha):
         fecha = validar_campo(fecha, "fecha")
+
         try:
-            datetime.strptime(fecha, "%Y-%m-%d")
+            # Aporte de Jully: corrección para convertir la fecha antes de validarla.
+            fecha_validada = datetime.strptime(fecha, "%Y-%m-%d").date()
         except ValueError:
-            raise ReservaInvalida("La fecha debe tener formato AAAA-MM-DD, ejemplo: 2026-11-20.")
+            raise ReservaInvalida(
+                "La fecha debe tener formato AAAA-MM-DD, ejemplo: 2026-11-20."
+            )
+
+        # Aporte de Jully: corrección para impedir reservas en fechas pasadas.
+        if fecha_validada < datetime.now().date():
+            raise ReservaInvalida(
+                "No se pueden crear reservas en fechas pasadas."
+            )
+
         return fecha
 
     @staticmethod
