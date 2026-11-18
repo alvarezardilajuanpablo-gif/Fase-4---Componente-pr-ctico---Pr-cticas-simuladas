@@ -5,18 +5,16 @@ from cliente import Cliente
 # Aporte de Jhon: Importa las clases Servicio y Reserva para servicios y Reservas
 from servicio import Servicio
 from reserva import Reserva
-from excepciones import ErrorValidacion
+# Aporte de Jully: corrección de importación para capturar cliente no encontrado.
+from excepciones import ErrorValidacion, ClienteNoEncontrado
 
-clientes = []
+# Aporte de Jully: corrección para usar la lista compartida de clientes
+# registrada dentro de la clase Cliente.
 # Aporte de Jhon: Listas para guardar servicios y reservas
 servicios = []
 reservas = []
 
-def buscar_cliente(identificador):
-    for c in clientes:
-        if c.identificador == identificador:
-            return c
-    return None
+
 # Aporte de Jhon: Busca un servicio por su identificador
 def buscar_servicio(identificador):
     for s in servicios:
@@ -116,10 +114,12 @@ def iniciar_menu():
                 fecha = input("Ingrese fecha AAAA-MM-DD: ")
                 hora = input("Ingrese hora HH:MM: ")
 
-                cliente = buscar_cliente(id_cliente)
-                if cliente is None:
-                    print("Error: cliente no encontrado.")
-                    continue
+                # Aporte de Jully: corrección para buscar el cliente en la lista compartida.
+                try:
+                cliente = Cliente.buscar_cliente(id_cliente)
+                except ClienteNoEncontrado:
+                print("Error: cliente no encontrado.")
+                continue
                 servicio = buscar_servicio(id_servicio)
                 if servicio is None:
                     print("Error: servicio no encontrado.")
