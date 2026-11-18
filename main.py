@@ -2,11 +2,13 @@ print("Software FJ")
 print("Sistema de Gestión de Clientes, Servicios y Reservas")
 
 from cliente import Cliente
+# Aporte de Jhon: Importa las clases Servicio y Reserva para servicios y Reservas
 from servicio import Servicio
 from reserva import Reserva
 from excepciones import ErrorValidacion
 
 clientes = []
+# Aporte de Jhon: Listas para guardar servicios y reservas
 servicios = []
 reservas = []
 
@@ -15,7 +17,7 @@ def buscar_cliente(identificador):
         if c.identificador == identificador:
             return c
     return None
-
+# Aporte de Jhon: Busca un servicio por su identificador
 def buscar_servicio(identificador):
     for s in servicios:
         if s.identificador == identificador:
@@ -27,6 +29,7 @@ def iniciar_menu():
         print("\nMenú de opciones:")
         print("1. Registrar cliente")
         print("2. Consultar clientes")
+       # Aporte de Jhon: Opciones para servicios y reservas
         print("3. Registrar servicio")
         print("4. Consultar servicios")
         print("5. Realizar reserva")
@@ -80,7 +83,7 @@ def iniciar_menu():
                 #Muestra el error si el cliente no existe o hay datos invalidos
                 print(f"Error de consulta: {error}")                                 
                                                                            
-
+    # Aporte de Jhon: Registra un servicio nuevo en la lista
         elif opcion == 3:
             try:
                 identificador = input("Ingrese ID del servicio: ")
@@ -101,7 +104,7 @@ def iniciar_menu():
                 for s in servicios:
                     print("\n---")
                     print(s.mostrar_informacion())
-
+# Aporte de Jhon: Crea una reserva asociada a un cliente y un servicio
         elif opcion == 5:
             try:
                 if not clientes or not servicios:
