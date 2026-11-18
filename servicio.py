@@ -45,6 +45,7 @@ class Servicio(Entidad):
         return (
             f"Identificador: {self.identificador}\n"
             f"Servicio: {self.__nombre}\n"
-            f"Precio: ${self.__precio}\n"
+            # Aporte de Jully: corrección para mostrar el precio con dos decimales.
+            f"Precio: ${self.__precio:.2f}\n"
             f"Duración: {self.__duracion_minutos} min"
         )
