@@ -45,20 +45,41 @@ def iniciar_menu():
                 nombre = input("Ingrese el nombre: ")
                 correo = input("Ingrese el correo: ")
                 telefono = input("Ingrese el teléfono, solo números: ")
-                cliente = Cliente(identificador, nombre, correo, telefono)
-                clientes.append(cliente)
+
+                # Crea el cliente y ejecuta las validaciones.
+                cliente = Cliente(
+                    identificador, nombre, correo, telefono
+                )
+
+                #Aporte de Juan: Registra el cliente en la lista compartida
+                cliente.registrar_cliente()
+
+                # Muestra el resultado del registro de prueba.
                 print("\nCliente creado correctamente:")
                 print(cliente.mostrar_informacion())
+
+                #Aporte de Juan: se elimina el mensaje anterior por que ahora los clientes si se almacenan en la lista compartida
+
             except ErrorValidacion as error:
                 print(f"Error de validación: {error}")
 
+        # Aporte de Juan: Implementamos la consulta de clientes por documento 
         elif opcion == 2:
-            if not clientes:
-                print("No hay clientes registrados.")
-            else:
-                for c in clientes:
-                    print("\n---")
-                    print(c.mostrar_informacion())
+            try:
+                #Solicita el documento del cliente que se desea buscar
+                identificador = input("Ingrese el documento del cliente: ")
+
+                #Busca el cliente utilizando su identificador
+                cliente = Cliente.buscar_cliente(identificador) 
+
+                #Muestra la informacion del cliente encontrado
+                print("\nCliente encontrado:")
+                print(cliente.mostrar_informacion())
+
+            except ErrorValidacion as error:
+                #Muestra el error si el cliente no existe o hay datos invalidos
+                print(f"Error de consulta: {error}")                                 
+                                                                           
 
         elif opcion == 3:
             try:

@@ -11,7 +11,8 @@ def validar_identificador(identificador):
     # Utiliza la validación general y devuelve el resultado.
     return validar_campo(identificador, "identificador")
 
-
+#Aporte de Juan: Se hizo revision de la clase entidad 
+#Se verifica que el identificador sea validado antes de almacenarse, por lo que no se requieren modificaciones adicionales
 #Creamos la clase abstracta Entidad con sus atributos y métodos, la cual representa entidades generales del sistema
 class Entidad (ABC):
     def __init__(self, identificador):
