@@ -102,8 +102,9 @@ def iniciar_menu():
                 for s in servicios:
                     print("\n---")
                     print(s.mostrar_informacion())
-# Aporte de Jhon: Crea una reserva asociada a un cliente y un servicio
-elif opcion == 5:
+
+     # Aporte de Jhon: Crea una reserva asociada a un cliente y un servicio
+     elif opcion == 5:
             try:
                 if not Cliente._clientes or not servicios:
                     print("Debe registrar al menos un cliente y un servicio primero.")
