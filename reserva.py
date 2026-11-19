@@ -25,19 +25,21 @@ class Reserva(Entidad):
 
         # Aporte de Jully: corrección para guardar la reserva en la lista compartida.
         Reserva._reservas.append(self)
-   @staticmethod
+
+    @staticmethod
     def validar_fecha(fecha):
         fecha = validar_campo(fecha, "fecha")
 
         try:
-            # Aporte de Jully: corrección para convertir la fecha antes de validarla.
-            fecha_validada = datetime.strptime(fecha, "%Y-%m-%d").date()
+            fecha_validada = datetime.strptime(
+                fecha, "%Y-%m-%d"
+            ).date()
+
         except ValueError:
             raise ReservaInvalida(
                 "La fecha debe tener formato AAAA-MM-DD, ejemplo: 2026-11-20."
             )
 
-        # Aporte de Jully: corrección para impedir reservas en fechas pasadas.
         if fecha_validada < datetime.now().date():
             raise ReservaInvalida(
                 "No se pueden crear reservas en fechas pasadas."
