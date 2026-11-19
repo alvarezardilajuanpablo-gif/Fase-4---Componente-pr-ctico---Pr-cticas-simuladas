@@ -144,7 +144,6 @@ def iniciar_menu():
                     hora
                 )
 
-                reservas.append(reserva)
 
                 print("\nReserva creada correctamente:")
                 print(reserva.mostrar_informacion())
@@ -152,14 +151,19 @@ def iniciar_menu():
             except ErrorValidacion as error:
                 print(f"Error de validación: {error}")
 
-        # OPCIÓN 6: Consultar reservas
+         # OPCIÓN 6: Consultar reservas
         elif opcion == 6:
-            if not reservas:
-                print("No hay reservas registradas.")
+            if not Reserva._reservas:
+                print("\nNo hay reservas registradas.")
             else:
-                for r in reservas:
-                    print("\n---")
+                print("\n===== RESERVAS REGISTRADAS =====")
+
+                for r in Reserva._reservas:
+                    print("\n----------------------------")
                     print(r.mostrar_informacion())
+
+                print("\n===== FIN DE LAS RESERVAS =====")
+
 
         # OPCIÓN 7: Salir
         elif opcion == 7:
