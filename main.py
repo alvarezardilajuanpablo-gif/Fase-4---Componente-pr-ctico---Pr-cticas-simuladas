@@ -105,7 +105,7 @@ def iniciar_menu():
 # Aporte de Jhon: Crea una reserva asociada a un cliente y un servicio
 elif opcion == 5:
             try:
-                if not Cliente.clientes or not servicios:
+                if not Cliente._clientes or not servicios:
                     print("Debe registrar al menos un cliente y un servicio primero.")
                     continue
 
@@ -127,7 +127,9 @@ elif opcion == 5:
                     print("Error: servicio no encontrado.")
                     continue
 
-                reserva = Reserva(identificador, cliente, servicio, fecha, hora)
+                reserva = Reserva(
+                    identificador, cliente, servicio, fecha, hora
+                )
                 reservas.append(reserva)
 
                 print("\nReserva creada correctamente:")
