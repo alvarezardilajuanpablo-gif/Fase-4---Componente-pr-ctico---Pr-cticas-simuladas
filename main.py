@@ -103,35 +103,39 @@ def iniciar_menu():
                     print("\n---")
                     print(s.mostrar_informacion())
 # Aporte de Jhon: Crea una reserva asociada a un cliente y un servicio
-        elif opcion == 5:
+elif opcion == 5:
             try:
-                if not clientes or not servicios:
+                if not Cliente.clientes or not servicios:
                     print("Debe registrar al menos un cliente y un servicio primero.")
                     continue
+
                 identificador = input("Ingrese ID de la reserva: ")
                 id_cliente = input("Ingrese ID del cliente: ")
                 id_servicio = input("Ingrese ID del servicio: ")
                 fecha = input("Ingrese fecha AAAA-MM-DD: ")
                 hora = input("Ingrese hora HH:MM: ")
 
-                # Aporte de Jully: corrección para buscar el cliente en la lista compartida.
                 try:
-                cliente = Cliente.buscar_cliente(id_cliente)
+                    cliente = Cliente.buscar_cliente(id_cliente)
                 except ClienteNoEncontrado:
-                print("Error: cliente no encontrado.")
-                continue
+                    print("Error: cliente no encontrado.")
+                    continue
+
                 servicio = buscar_servicio(id_servicio)
+
                 if servicio is None:
                     print("Error: servicio no encontrado.")
                     continue
 
                 reserva = Reserva(identificador, cliente, servicio, fecha, hora)
                 reservas.append(reserva)
+
                 print("\nReserva creada correctamente:")
                 print(reserva.mostrar_informacion())
+
             except ErrorValidacion as error:
                 print(f"Error de validación: {error}")
-
+                
         elif opcion == 6:
             if not reservas:
                 print("No hay reservas registradas.")
